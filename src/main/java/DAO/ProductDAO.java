@@ -77,8 +77,15 @@ public class ProductDAO implements EnitytDAO<Products, Integer>{
 
     @Override
     public List<Products> findAll() {
-        String jpql = "Select o From Users o";
+        String jpql = "Select o From Products o";
         TypedQuery<Products> query = entityManager.createQuery(jpql, Products.class);
+        return query.getResultList();
+    }
+
+    public List<Products> findProductsByCategoryId(int id) {
+        String jpql = "SELECT p FROM Products p WHERE 1 = 1 and p.categoriesByCategoryId.categoryId = :id";
+        TypedQuery<Products> query = entityManager.createQuery(jpql, Products.class);
+        query.setParameter("id", id);
         return query.getResultList();
     }
 }

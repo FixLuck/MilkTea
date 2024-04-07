@@ -11,10 +11,13 @@ public class Test {
 
 
         List<Products> list = new ArrayList<>();
-        list = dao.findByKeyWord("Espresso");
+        list = dao.findProductsByCategoryId(1);
         for (Products i: list
              ) {
-            System.out.println(i.getCategoriesByCategoryId().getName());
+            System.out.println(i.getProdName());
         }
+
+
+
     }
 }

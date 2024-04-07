@@ -4,6 +4,11 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
 
+@NamedQueries({
+        @NamedQuery(name = "Category.findAllName",
+        query = "Select o.name From Categories o")
+})
+
 @Entity
 public class Categories {
     @GeneratedValue(strategy = GenerationType.IDENTITY)

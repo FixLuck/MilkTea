@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,142 +18,35 @@
 	<div class="pro-header">
 		Filter
 			<!-- Example single danger button -->
-		<div class="btn-group" style="margin-left: 20px">
-		  <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-		    All Category
-		  </button>
-		  <ul class="dropdown-menu">
-		    <li><a class="dropdown-item" href="#">All Category</a></li>
-		    <li><a class="dropdown-item" href="#">Coffee</a></li>
-		    <li><a class="dropdown-item" href="#">Tea</a></li>
-		    <li><a class="dropdown-item" href="#">Milk Tea</a></li>
-		    <li><a class="dropdown-item" href="#">Smoothe</a></li>
-		    <li><a class="dropdown-item" href="#">Soft drink</a></li>
-		  </ul>
-		</div>
+		<c:set var="cid" value="${requestScope.cid}"></c:set>
+		<form id="f1" action="/MilkTea/products">
+			<select class="form-select" aria-label="Default select example" name="key" onchange="change()">
+				<option value="0">All</option>
+				<c:forEach items="${categories}" var="c">
+					<option ${(cid == c.getCategoryId())?'selected':''} value="${c.getCategoryId()}">${c.getName()}</option>
+				</c:forEach>
+			</select>
+		</form>
 	</div>
 	
 	<div class="pro-body">
 		<div class="container mt-4">
-		  <h1 class="text-center mb-4">Milk Tea</h1>
+		  <h1 class="text-center mb-4">Categories</h1>
 		  <div class="row">
-		    <div class="col-md-4">
-		      <div class="card mb-4">
-		        <img src="/JAVA4_ASM/views/img/milktea1.jpg" class="card-img-top mx-auto d-block mt-3" alt="Product 1" style="width: 200px;">
-		        <div class="card-body text-center">
-		          <p class="card-text mb-1">Milk Tea</p>
-		          <h5 class="card-title mb-1">Traditional</h5>
-		          <p class="card-text mb-2">$1.99</p>
-		          <p class="quantity-in-stock">Quantity in stock: 79</p>
-		          <button class="btn btn-danger d-none" id="addToCartBtn1">Add to Cart</button>
-		        </div>
-		      </div>
-		    </div>
-		    
-		    <div class="col-md-4">
-		      <div class="card mb-4">
-		        <img src="/JAVA4_ASM/views/img/milktea2.jpg" class="card-img-top mx-auto d-block mt-3" alt="Product 2" style="width: 200px;">
-		        <div class="card-body text-center">
-		          <p class="card-text mb-1">Milk Tea</p>
-		          <h5 class="card-title mb-1">Traditional</h5>
-		          <p class="card-text mb-2">$1.99</p>
-		          <p class="quantity-in-stock">Quantity in stock: 79</p>
-		          <button class="btn btn-danger d-none" id="addToCartBtn1">Add to Cart</button>
-		        </div>
-		      </div>
-		    </div>
-		    
-		    <div class="col-md-4">
-		      <div class="card mb-4">
-		        <img src="/JAVA4_ASM/views/img/milktea3.jpg" class="card-img-top mx-auto d-block mt-3" alt="Product 3" style="width: 200px;">
-		        <div class="card-body text-center">
-		          <p class="card-text mb-1">Milk Tea</p>
-		          <h5 class="card-title mb-1">Traditional</h5>
-		          <p class="card-text mb-2">$1.99</p>
-		          <p class="quantity-in-stock">Quantity in stock: 79</p>
-		          <button class="btn btn-danger d-none" id="addToCartBtn1">Add to Cart</button>
-		        </div>
-		      </div>
-		    </div>
-		    
-		    <div class="col-md-4">
-		      <div class="card mb-4">
-		        <img src="/JAVA4_ASM/views/img/milktea4.jpg" class="card-img-top mx-auto d-block mt-3" alt="Product 4" style="width: 200px;">
-		        <div class="card-body text-center">
-		          <p class="card-text mb-1">Milk Tea</p>
-		          <h5 class="card-title mb-1">Traditional</h5>
-		          <p class="card-text mb-2">$1.99</p>
-		          <p class="quantity-in-stock">Quantity in stock: 79</p>
-		          <button class="btn btn-danger d-none" id="addToCartBtn1">Add to Cart</button>
-		        </div>
-		      </div>
-		    </div>
-		    
-		    <div class="col-md-4">
-		      <div class="card mb-4">
-		        <img src="/JAVA4_ASM/views/img/milktea5.jpg" class="card-img-top mx-auto d-block mt-3" alt="Product 5" style="width: 200px;">
-		        <div class="card-body text-center">
-		          <p class="card-text mb-1">Milk Tea</p>
-		          <h5 class="card-title mb-1">Traditional</h5>
-		          <p class="card-text mb-2">$1.99</p>
-		          <p class="quantity-in-stock">Quantity in stock: 79</p>
-		          <button class="btn btn-danger d-none" id="addToCartBtn1">Add to Cart</button>
-		        </div>
-		      </div>
-		    </div>
-		    
-		    <div class="col-md-4">
-		      <div class="card mb-4">
-		        <img src="/JAVA4_ASM/views/img/milktea6.jpg" class="card-img-top mx-auto d-block mt-3" alt="Product 6" style="width: 200px;">
-		        <div class="card-body text-center">
-		          <p class="card-text mb-1">Milk Tea</p>
-		          <h5 class="card-title mb-1">Traditional</h5>
-		          <p class="card-text mb-2">$1.99</p>
-		          <p class="quantity-in-stock">Quantity in stock: 79</p>
-		          <button class="btn btn-danger d-none" id="addToCartBtn1">Add to Cart</button>
-		        </div>
-		      </div>
-		    </div>
-		    
-		    <div class="col-md-4">
-		      <div class="card mb-4">
-		        <img src="/JAVA4_ASM/views/img/milktea7.jpg" class="card-img-top mx-auto d-block mt-3" alt="Product 7" style="width: 200px;">
-		        <div class="card-body text-center">
-		          <p class="card-text mb-1">Milk Tea</p>
-		          <h5 class="card-title mb-1">Traditional</h5>
-		          <p class="card-text mb-2">$1.99</p>
-		          <p class="quantity-in-stock">Quantity in stock: 79</p>
-		          <button class="btn btn-danger d-none" id="addToCartBtn1">Add to Cart</button>
-		        </div>
-		      </div>
-		    </div>
-		    
-		    <div class="col-md-4">
-		      <div class="card mb-4">
-		        <img src="/JAVA4_ASM/views/img/milktea8.jpg" class="card-img-top mx-auto d-block mt-3" alt="Product 8" style="width: 200px;">
-		        <div class="card-body text-center">
-		          <p class="card-text mb-1">Milk Tea</p>
-		          <h5 class="card-title mb-1">Traditional</h5>
-		          <p class="card-text mb-2">$1.99</p>
-		          <p class="quantity-in-stock">Quantity in stock: 79</p>
-		          <button class="btn btn-danger d-none" id="addToCartBtn1">Add to Cart</button>
-		        </div>
-		      </div>
-		    </div>
-		    
-		    <div class="col-md-4">
-		      <div class="card mb-4">
-		        <img src="/JAVA4_ASM/views/img/milktea9.jpg" class="card-img-top mx-auto d-block mt-3" alt="Product 9" style="width: 200px;">
-		        <div class="card-body text-center">
-		          <p class="card-text mb-1">Milk Tea</p>
-		          <h5 class="card-title mb-1">Traditional</h5>
-		          <p class="card-text mb-2">$1.99</p>
-		          <p class="quantity-in-stock">Quantity in stock: 79</p>
-		          <button class="btn btn-danger d-none" id="addToCartBtn1">Add to Cart</button>
-		        </div>
-		      </div>
-		    </div>
-		    
+			  <c:forEach items="${requestScope.products}" var="p">
+				  <div class="col-md-4">
+					  <div class="card mb-4">
+						  <img src="/JAVA4_ASM/views/img/milktea1.jpg" class="card-img-top mx-auto d-block mt-3" alt="Product 1" style="width: 200px;">
+						  <div class="card-body text-center">
+							  <p class="card-text mb-1">${p.getProdName()}</p>
+							  <h5 class="card-title mb-1">${p.getDescribe()}</h5>
+							  <p class="card-text mb-2">${p.getPrice()}$</p>
+							  <p class="quantity-in-stock">Quantity in stock: ${p.getStock()}</p>
+							  <button class="btn btn-danger d-none" id="addToCartBtn1">Add to Cart</button>
+						  </div>
+					  </div>
+				  </div>
+			  </c:forEach>
 		    <!-- Add more product cards here -->
 		  </div>
 		</div>
@@ -202,4 +96,9 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
 	crossorigin="anonymous"></script>
+<script type="text/javascript">
+	function change() {
+		document.getElementById("f1").submit();
+	}
+</script>
 </html>

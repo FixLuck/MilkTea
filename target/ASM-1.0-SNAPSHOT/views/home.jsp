@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <head>
     <meta charset="UTF-8">
@@ -51,14 +52,10 @@
               </li>
               <li class="nav-item">
                 <div class="dropdown">
-                    <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Product
-                    </button>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="#">Action</a></li>
-                      <li><a class="dropdown-item" href="#">Another action</a></li>
-                      <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
+                    <a href="/products">
+                        <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Product
+                    </button></a>
                   </div>
               </li>
               
@@ -101,39 +98,19 @@
       <div class="product-list mt-3">
         <div class="container">
             <h1 class="text-center display-4">All categories</h1>
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="card">
-                        <img src="views/img/logo-milktea.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <div class="row d-flex justify-items-between">
+                <c:set var="t" value="0"/>
+                <c:forEach var="item" items="${names}">
+                    <c:set var="t" value="${t + 1}"/>
+                    <div class="col-md-2">
+                        <div class="card">
+                            <img src="views/img/category/img-${t}.jpg" class="card-img-top img-fluid" alt="...">
+                            <div class="card-body">
+                                <p class="card-text text-center">${item}</p>
+                            </div>
                         </div>
-                      </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card">
-                        <img src="views/img/logo-milktea.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                      </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card">
-                        <img src="views/img/logo-milktea.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                      </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card">
-                        <img src="views/img/logo-milktea.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        </div>
-                      </div>
-                </div>
+                    </div>
+                </c:forEach>
             </div>
         </div>
       </div>

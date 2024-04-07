@@ -82,4 +82,6 @@ public class CategoryDAO implements EnitytDAO<Categories, Integer>{
         TypedQuery<String> query = entityManager.createQuery(jpql, String.class);
         return query.getResultList();
     }
+
+
 }
