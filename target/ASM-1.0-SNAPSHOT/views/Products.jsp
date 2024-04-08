@@ -52,15 +52,10 @@
 			<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item">
-						<a class="nav-link active" aria-current="page" href="#">Home</a>
+						<a class="nav-link active" aria-current="page" href="home">Home</a>
 					</li>
 					<li class="nav-item">
-						<div class="dropdown">
-							<a href="/products">
-								<button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-									Product
-								</button></a>
-						</div>
+						<a class="nav-link active" aria-current="page" href="products">Products</a>
 					</li>
 
 				</ul>
@@ -68,11 +63,14 @@
 					<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
 					<button class="btn btn-outline-success" type="submit">Search</button>
 				</form>
-				<form action="/MilkTea/process" method="get">
-					<button formaction="" class="btn btn-primary">
-						<i class="fa-solid fa-cart-shopping"></i>
-					</button>
-				</form>
+				<c:set var="size" value="${sessionScope.size}"/>
+				<a class="btn btn-primary position-relative" href="process">
+					<i class="fa-solid fa-cart-shopping"></i>
+					<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        ${size}
+                    <span class="visually-hidden">unread messages</span>
+                </span>
+				</a>
 
 			</div>
 		</div>

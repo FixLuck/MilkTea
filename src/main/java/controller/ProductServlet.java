@@ -82,6 +82,7 @@ public class ProductServlet extends HttpServlet {
 
         List<Item> list = cart.getItems();
         session.setAttribute("cart", cart);
+        session.setAttribute("size", list.size());
         request.getRequestDispatcher("/views/Products.jsp").forward(request, response);
     }
 }
