@@ -16,6 +16,9 @@ public class LogoutServlet extends HttpServlet {
         HttpSession session = req.getSession();
         if (session.getAttribute("account") != null) {
             session.removeAttribute("account");
+            session.removeAttribute("cart");
+            session.removeAttribute("size");
+
         }
         req.getRequestDispatcher("/views/home.jsp").forward(req, resp);
     }

@@ -38,7 +38,7 @@ public class CheckoutServlet extends HttpServlet {
             oDAO.addOrder(users, cart);
             session.removeAttribute("cart");
             session.setAttribute("size", 0);
-            resp.sendRedirect("/views/home.jsp");
+            resp.sendRedirect(req.getContextPath() + "/home");
         } else {
             System.out.println("Error");
         }

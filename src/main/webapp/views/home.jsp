@@ -38,7 +38,7 @@
                         <a href="#" class="btn btn-secondary">
                             <i class="fa-solid fa-mug-saucer"></i> &nbsp; Manager
                         </a>
-                        <button class="btn btn-primary">Manager</button>
+
 
                     </c:if>
                 </c:when>

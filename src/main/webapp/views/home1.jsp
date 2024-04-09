@@ -38,8 +38,6 @@
                         <a href="#" class="btn btn-secondary">
                             <i class="fa-solid fa-mug-saucer"></i> &nbsp; Manager
                         </a>
-                        <button class="btn btn-primary">Manager</button>
-
                     </c:if>
                 </c:when>
 
@@ -146,12 +144,10 @@
                 <form action="/MilkTea/checkout"  method="post">
                     <div class="card d-flex justify-content-end">
                         <div class="card-body">
-                            <button type="button" class="btn btn-warning btn-block btn-lg">Proceed to Pay</button>
+                            <button class="btn btn-warning btn-block btn-lg">Proceed to Pay</button>
                         </div>
                     </div>
                 </form>
-
-
 
             </div>
         </div>
