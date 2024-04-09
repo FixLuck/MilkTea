@@ -19,36 +19,41 @@ public class ProcessServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        Cart cart = null;
-        Object o = session.getAttribute("cart");
-        if (o != null) {
-            cart = (Cart) o;
-        } else {
+        Cart cart = (Cart) session.getAttribute("cart");
+        if (cart == null) {
             cart = new Cart();
         }
 
         String tnum = req.getParameter("num");
         String tid = req.getParameter("id");
-        int num, id;
-        try {
-            num = Integer.parseInt(tnum);
-            id = Integer.parseInt(tid);
-            if ((num == -1) && (cart.getQuantityById(id)) <= 1) {
-                cart.removeItem(id);
-            } else {
-                ProductDAO productDAO = new ProductDAO();
-                Products products = productDAO.findById(id);
-                Item t = new Item(products, num, products.getPrice());
-                cart.addItem(t); // Thêm mục mới vào giỏ hàng
+
+        if (tnum != null && tid != null) {
+            try {
+                int num = Integer.parseInt(tnum);
+                int id = Integer.parseInt(tid);
+
+                if (num == -1 && cart.getQuantityById(id) <= 1) {
+                    cart.removeItem(id);
+                } else {
+                    ProductDAO productDAO = new ProductDAO();
+                    Products products = productDAO.findById(id);
+                    if (products != null) {
+                        Item item = new Item(products, num, products.getPrice());
+                        cart.addItem(item);
+                    } else {
+                        // Xử lý trường hợp không tìm thấy sản phẩm với id đã cho
+                    }
+                }
+            } catch (NumberFormatException e) {
+                // Xử lý ngoại lệ NumberFormatException
+                e.printStackTrace();
             }
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
         }
 
-        List<Item> list = cart.getItems();
         session.setAttribute("cart", cart);
-        session.setAttribute("size", list.size());
+        session.setAttribute("size", cart.getItems().size());
         req.getRequestDispatcher("/views/home1.jsp").forward(req, resp);
+
 
     }
 

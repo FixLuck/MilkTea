@@ -8,7 +8,7 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "HomeServlet", value = "/home")
+@WebServlet(name = "HomeServlet", value = {"/home"})
 public class HomeServlet extends HttpServlet {
 
     CategoryDAO categoryDAO = new CategoryDAO();

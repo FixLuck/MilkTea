@@ -26,12 +26,29 @@
                 </p>
             </div>
 
-            <div class="right-header d-flex">
-                <button class="btn text-white">
-                    <i class="fa-solid fa-user"></i> &nbsp;
-                    Login/Register
-                </button>
-            </div>
+            <c:set var="a" value="${sessionScope.account}"/>
+            <c:choose>
+
+                <c:when test="${a != null}">
+                    Hi, ${a.getUserName()}
+                    <a href="logout" class="btn btn-danger">
+                        <i class="fa-solid fa-right-from-bracket"></i> &nbsp; Logout
+                    </a>
+                    <c:if test="${a.getRolesByRoleId().getRoleName() == 'admin'}">
+                        <a href="#" class="btn btn-secondary">
+                            <i class="fa-solid fa-mug-saucer"></i> &nbsp; Manager
+                        </a>
+                        <button class="btn btn-primary">Manager</button>
+
+                    </c:if>
+                </c:when>
+
+                <c:otherwise>
+                    <a class="btn btn-light" href="login">
+                        <i class="fa-solid fa-user"></i> &nbsp; Login/Register
+                    </a>
+                </c:otherwise>
+            </c:choose>
 
         </div>
     </div>
@@ -126,12 +143,15 @@
                     </div>
                 </c:forEach>
 
-
-                <div class="card d-flex justify-content-end">
-                    <div class="card-body">
-                        <button type="button" class="btn btn-warning btn-block btn-lg">Proceed to Pay</button>
+                <form action="/MilkTea/checkout"  method="post">
+                    <div class="card d-flex justify-content-end">
+                        <div class="card-body">
+                            <button type="button" class="btn btn-warning btn-block btn-lg">Proceed to Pay</button>
+                        </div>
                     </div>
-                </div>
+                </form>
+
+
 
             </div>
         </div>
