@@ -93,11 +93,13 @@
 	<div class="pro-body">
 		<div class="container mt-4">
 			<h1 class="text-center mb-4">Categories</h1>
-			<div class="row">
-				<c:forEach items="${sessionScope.products}" var="p">
-					<div class="col-md-4">
-						<form id="addToCartBtn1" action="/MilkTea/buy" method="post">
-							<input type="hidden" name="num" value="1">
+			<form id="formGetProduct" action="/MilkTea/buy" method="post">
+				<input type="hidden" id="productId" name="id"> <!-- Thêm một trường ẩn để lưu id sản phẩm -->
+				<input type="hidden" name="num" value="1"> <!-- Trường này có thể thay đổi tùy theo số lượng bạn muốn thêm vào giỏ hàng -->
+
+				<div class="row">
+					<c:forEach items="${sessionScope.products}" var="p">
+						<div class="col-md-4">
 							<div class="card mb-4">
 								<img src="/JAVA4_ASM/views/img/milktea1.jpg" class="card-img-top mx-auto d-block mt-3" alt="Product 1" style="width: 200px;">
 								<div class="card-body text-center">
@@ -105,14 +107,14 @@
 									<h5 class="card-title mb-1">${p.getDescribe()}</h5>
 									<p class="card-text mb-2">${p.getPrice()}$</p>
 									<p class="quantity-in-stock">Quantity in stock: ${p.getStock()}</p>
-									<button type="submit" class="btn btn-danger d-none" onclick="buy(${p.getProductId()})">Add to Cart</button>
+									<button type="button" class="btn btn-danger" onclick="buy(${p.getProductId()})">Add to Cart</button> <!-- Thay type="submit" thành type="button" để ngăn form submit mặc định -->
 								</div>
 							</div>
-						</form>
-					</div>
-				</c:forEach>
-				<!-- Add more product cards here -->
-			</div>
+						</div>
+					</c:forEach>
+				</div>
+			</form>
+
 		</div>
 	</div>
 
@@ -239,8 +241,10 @@
 	}
 
 	function buy(id) {
-		let form = document.getElementById("addToCartBtn1");
-		form.action = "buy?id=" + id;
+		let productIdInput = document.getElementById("productId");
+		productIdInput.value = id; // Cập nhật giá trị id vào trường ẩn
+
+		let form = document.getElementById("formGetProduct");
 		form.submit();
 	}
 

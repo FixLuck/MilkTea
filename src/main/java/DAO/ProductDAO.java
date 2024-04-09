@@ -83,7 +83,7 @@ public class ProductDAO implements EnitytDAO<Products, Integer>{
     }
 
     public List<Products> findProductsByCategoryId(int id) {
-        String jpql = "SELECT p FROM Products p WHERE 1 = 1 and p.categoriesByCategoryId.categoryId = :id";
+        String jpql = "SELECT p FROM Products p WHERE p.categoriesByCategoryId.categoryId = :id";
         TypedQuery<Products> query = entityManager.createQuery(jpql, Products.class);
         query.setParameter("id", id);
         return query.getResultList();

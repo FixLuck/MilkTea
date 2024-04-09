@@ -39,6 +39,7 @@ public class ProcessServlet extends HttpServlet {
                 ProductDAO productDAO = new ProductDAO();
                 Products products = productDAO.findById(id);
                 Item t = new Item(products, num, products.getPrice());
+                cart.addItem(t); // Thêm mục mới vào giỏ hàng
             }
         } catch (NumberFormatException e) {
             e.printStackTrace();
@@ -48,6 +49,7 @@ public class ProcessServlet extends HttpServlet {
         session.setAttribute("cart", cart);
         session.setAttribute("size", list.size());
         req.getRequestDispatcher("/views/home1.jsp").forward(req, resp);
+
     }
 
     @Override
