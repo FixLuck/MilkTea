@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,15 +32,16 @@
         </thead>
         <tbody>
             <!-- Dynamic content will be inserted here -->
-            <c:forEach var="product" items="${products}">
+            <c:forEach var="products" items="${products}">
                 <tr>
-                    <th scope="row">${product.id}</th>
-                    <td>${product.name}</td>
-                    <td>${product.price}</td>
-                    <td>${product.description}</td>
-                    <td>
-                        <button type="button" class="btn btn-primary" onclick="showEditProductModal(1 /* productId */)">Edit</button>
-                        <button type="button" class="btn btn-danger">Delete</button>
+                    <th scope="row">${products.productId}</th>
+			        <td>${products.prodName}</td>
+			        <td>${products.price}</td>
+			        <td>${products.describe}</td>
+			        <td>
+                        <button type="button" class="btn btn-primary" onclick="showEditProductModal(${products.productId})">Edit</button>
+                       
+                        <button type="button" class="btn btn-danger" onclick="deleteProduct(${products.productId})">Delete</button>
                     </td>
                 </tr>
             </c:forEach>
@@ -56,7 +58,7 @@
 			                <h5 class="modal-title" id="addProductModalLabel">Add New Product</h5>
 			            </div>
 			            <div class="modal-body">
-			                <form id="addProductForm">
+			                <form id="addProductForm" action="/MilkTea/src/main/java/controller/AdminServlet.java/creat" method="POST">
 			                    <div class="form-group">
 			                        <label for="productName">Product Name</label>
 			                        <input type="text" class="form-control" id="productName" required>
@@ -87,7 +89,7 @@
 			                <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
 			            </div>
 			            <div class="modal-body">
-			                <form id="editProductForm">
+			                <form id="editProductForm" action="/MilkTea/src/main/java/controller/AdminServlet.java/update" method="POST">
 			                    <div class="form-group">
 			                        <label for="editProductId">Product ID</label>
 			                        <input type="text" class="form-control" id="editProductId" readonly>
@@ -141,94 +143,6 @@
 	function showEditProductModal(productId) {
 	    // Populate edit form here if needed based on productId
 	    $('#editProductModal').modal('show');
-	}
-	
-	//Function for Adding Products
-	function addProduct() {
-    var productName = document.getElementById('productName').value;
-    var productPrice = document.getElementById('productPrice').value;
-    var productDescription = document.getElementById('productDescription').value;
-
-    var productData = {
-        name: productName,
-        price: productPrice,
-        description: productDescription
-    };
-
-	    // Send AJAX POST request to server
-	    $.ajax({
-	        type: 'POST',
-	        url: '/api/products', // Replace with your API endpoint
-	        contentType: 'application/json',
-	        data: JSON.stringify(productData),
-	        success: function(response) {
-	            // Handle success response (e.g., close modal, refresh product list)
-	            $('#addProductModal').modal('hide');
-	            // Call a function to update product list on the page
-	            fetchProducts(); // Example function to fetch and display products
-	        },
-	        error: function(error) {
-	            // Handle error response (e.g., display error message)
-	            console.error('Error adding product:', error);
-	        }
-	    });
-	}
-	
-	//Function for Editting Products
-	function populateEditForm(productId) {
-	    // Fetch product details based on productId from your backend
-	    $.get('/api/products/' + productId, function(product) {
-	        // Populate form fields with product data
-	        document.getElementById('editProductId').value = product.productId;
-	        document.getElementById('editProductName').value = product.name;
-	        document.getElementById('editProductPrice').value = product.price;
-	        document.getElementById('editProductStock').value = product.stock;
-	        document.getElementById('editProductDescription').value = product.description;
-	        document.getElementById('editProductImages').value = product.images;
-	        document.getElementById('editProductCreateDate').value = product.createDate;
-	        document.getElementById('editProductCategoryId').value = product.categoryId;
-
-	        // Show edit modal
-	        $('#editProductModal').modal('show');
-	    });
-	}
-
-	function updateProduct() {
-	    var productId = document.getElementById('editProductId').value;
-	    var updatedProductName = document.getElementById('editProductName').value;
-	    var updatedProductPrice = document.getElementById('editProductPrice').value;
-	    var updatedProductStock = document.getElementById('editProductStock').value;
-	    var updatedProductDescription = document.getElementById('editProductDescription').value;
-	    var updatedProductImages = document.getElementById('editProductImages').value;
-	    var updatedProductCategoryId = document.getElementById('editProductCategoryId').value;
-
-	    var updatedProductData = {
-	        productId: productId,
-	        name: updatedProductName,
-	        price: updatedProductPrice,
-	        stock: updatedProductStock,
-	        description: updatedProductDescription,
-	        images: updatedProductImages,
-	        categoryId: updatedProductCategoryId
-	    };
-
-		    // Send AJAX PUT request to update product
-		    $.ajax({
-		        type: 'PUT',
-		        url: '/api/products/' + productId, // Replace with your API endpoint
-		        contentType: 'application/json',
-		        data: JSON.stringify(updatedProductData),
-		        success: function(response) {
-		            // Handle success response (e.g., close modal, refresh product list)
-		            $('#editProductModal').modal('hide');
-		            // Call a function to update product list on the page
-		            fetchProducts(); // Example function to fetch and display products
-		        },
-		        error: function(error) {
-		            // Handle error response (e.g., display error message)
-		            console.error('Error updating product:', error);
-		        }
-		    });
 	}
 	
 	function closeModal() {
