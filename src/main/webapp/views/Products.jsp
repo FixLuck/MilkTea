@@ -118,7 +118,7 @@
 					<c:forEach items="${sessionScope.products}" var="p">
 						<div class="col-md-4">
 							<div class="card mb-4">
-								<img src="/JAVA4_ASM/views/img/milktea1.jpg" class="card-img-top mx-auto d-block mt-3" alt="Product 1" style="width: 200px;">
+								<img src="${p.getImages()}" class="card-img-top mx-auto d-block mt-3" alt="Product 1" style="width: 200px;">
 								<div class="card-body text-center">
 									<p class="card-text mb-1">${p.getProdName()}</p>
 									<h5 class="card-title mb-1">${p.getDescribe()}</h5>
