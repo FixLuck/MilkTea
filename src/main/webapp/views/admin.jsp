@@ -65,42 +65,49 @@
 
 
 <!-- Modal for Add New Product -->
-<div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="addProductModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addProductModalLabel">Add New Product</h5>
-            </div>
-            <div class="modal-body">
-                <form id="addProductForm" action="admin/creat" method="POST">
+<form action="/MilkTea/admin/creat" method="post">
+    <div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="addProductModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addProductModalLabel">Add New Product</h5>
+                </div>
+                <div class="modal-body">
                     <div class="form-group">
                         <label for="productName">Product Name</label>
-                        <input type="text" class="form-control" id="productName" required>
+                        <input type="text" class="form-control" id="productName" required name="prodName">
                     </div>
                     <div class="form-group">
                         <label for="productPrice">Price</label>
-                        <input type="number" class="form-control" id="productPrice" required>
+                        <input type="number" class="form-control" id="productPrice" required name="price">
                     </div>
                     <div class="form-group">
                         <label for="productDescription">Description</label>
-                        <textarea class="form-control" id="productDescription" rows="3" required></textarea>
+                        <input type="text" class="form-control" id="productDescription" rows="3" required name="describe"></input>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeModal()">Close
-                </button>
-                <button type="button" class="btn btn-primary" onclick="addProduct()">Save</button>
+                    Category
+                    <c:set var="item" value="${requestScope.category}"/>
+                    <select class="form-select" aria-label="Default select example" name="cateId">
+                        <c:forEach var="i" items="${item}">
+                            <option value="${i.categoryId}">${i.name}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeModal()">Close
+                    </button>
+                    <button class="btn btn-primary" >Save</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</form>
 
 
 <c:set var="p" value="${requestScope.productById}"/>
 <!-- Modal for Edit Product -->
-<form id="editProductForm" action="admin/update" method="POST">
+<form id="editProductForm" action="/MilkTea/admin/update" method="POST">
     <div class="modal fade" id="editProductModal" tabindex="-1" role="dialog" aria-labelledby="editProductModalLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -154,7 +161,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeModal()">Close
                     </button>
-                    <button formaction="admin/update" class="btn btn-primary">Save</button>
+                    <button class="btn btn-primary">Save</button>
                 </div>
             </div>
         </div>

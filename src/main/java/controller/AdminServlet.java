@@ -29,6 +29,8 @@ import entity.Products;
 
 public class AdminServlet extends HttpServlet {
 private static final long serialVersionUID = 1L;
+
+	CategoryDAO cateDAO = new CategoryDAO();
 	
 	public AdminServlet() {
 		super();
@@ -82,10 +84,10 @@ private static final long serialVersionUID = 1L;
 	            }
 	        }
 	    }
-		
+		getCategories(req, resp);
 	 // Load all products
 	    findAll(req, resp);
-	    
+
 	    // Forward the request to admin.jsp
 	    getServletContext().getRequestDispatcher("/views/admin.jsp").forward(req, resp);
 	}
@@ -115,9 +117,12 @@ private static final long serialVersionUID = 1L;
 	protected void creat(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {
+			int prodId = Integer.parseInt(request.getParameter("cateId"));
+			Categories category = cateDAO.findById(prodId);
 			Products products = new Products();
 			BeanUtils.populate(products, request.getParameterMap());
 			ProductDAO dao = new ProductDAO();
+			products.setCategoriesByCategoryId(category);
 			dao.creat(products);
 			request.setAttribute("message", "Create success!");
 		} catch (Exception e) {
@@ -179,11 +184,11 @@ private static final long serialVersionUID = 1L;
 
 	protected void getCategories(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			HttpSession session = request.getSession();
-			List<Categories> list = (List<Categories>) session.getAttribute("categories");
-			request.setAttribute("categories", list);
+			List<Categories> list = cateDAO.findAll();
+			request.setAttribute("category", list);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 	}
 }
