@@ -31,6 +31,14 @@
             <version>1.2</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils -->
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.9.4</version>
+        </dependency>
+
+
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
@@ -53,11 +61,6 @@
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-        	<groupId>com.poly.asm</groupId>
-        	<artifactId>asm-java4-hibernate</artifactId>
-        	<version>1.0</version>
         </dependency>
     </dependencies>
 

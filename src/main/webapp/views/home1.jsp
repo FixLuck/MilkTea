@@ -35,7 +35,7 @@
                         <i class="fa-solid fa-right-from-bracket"></i> &nbsp; Logout
                     </a>
                     <c:if test="${a.getRolesByRoleId().getRoleName() == 'admin'}">
-                        <a href="#" class="btn btn-secondary">
+                        <a href="admin/index" class="btn btn-secondary">
                             <i class="fa-solid fa-mug-saucer"></i> &nbsp; Manager
                         </a>
                     </c:if>

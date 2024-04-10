@@ -8,7 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import DAO.CategoryDAO;
+import entity.Categories;
 import org.apache.commons.beanutils.BeanUtils;
 
 import DAO.ProductDAO;
@@ -40,7 +43,7 @@ private static final long serialVersionUID = 1L;
 	    
 	    if (url.contains("delete")) {
 	        // Check if id parameter is present
-	        String ProductIdParam = req.getParameter("ProductId");
+	        String ProductIdParam = req.getParameter("productId");
 	        if (ProductIdParam != null && !ProductIdParam.isEmpty()) {
 	            try {
 	                // Convert idParam to integer
@@ -66,13 +69,13 @@ private static final long serialVersionUID = 1L;
 	        }
 	    } else if (url.contains("edit")) {
 	        // For edit functionality (assuming it's similar to your existing code)
-	        String ProductIdParam = req.getParameter("ProductId");
+	        String ProductIdParam = req.getParameter("productId");
 	        if (ProductIdParam != null && !ProductIdParam.isEmpty()) {
 	            try {
 	                int ProductId = Integer.parseInt(ProductIdParam);
 	                ProductDAO dao = new ProductDAO();
 	                Products products = dao.findById(ProductId);
-	                req.setAttribute("products", products);
+	                req.setAttribute("productById", products);
 	            } catch (NumberFormatException e) {
 	                req.setAttribute("message", "Invalid product ID");
 	                e.printStackTrace();
@@ -127,10 +130,15 @@ private static final long serialVersionUID = 1L;
 	protected void update(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {
+			int prodId = Integer.parseInt(request.getParameter("prodId"));
+			CategoryDAO cdao = new CategoryDAO();
+			Categories category = cdao.findById(prodId);
+
 			Products products = new Products();
 			BeanUtils.populate(products, request.getParameterMap());
-			ProductDAO dao = new ProductDAO();
-			dao.update(products);
+			ProductDAO pdao = new ProductDAO();
+			products.setCategoriesByCategoryId(category);
+			pdao.update(products);
 			request.setAttribute("message", "Update success!");
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -166,6 +174,16 @@ private static final long serialVersionUID = 1L;
 			// TODO: handle exception
 			e.printStackTrace();
 			request.setAttribute("error", "Error: "+e.getMessage());
+		}
+	}
+
+	protected void getCategories(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			HttpSession session = request.getSession();
+			List<Categories> list = (List<Categories>) session.getAttribute("categories");
+			request.setAttribute("categories", list);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 }

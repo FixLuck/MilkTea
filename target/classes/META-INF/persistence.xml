@@ -15,7 +15,7 @@
             <property name="hibernate.generate_statistics" value="false"/>
             <property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
             <property name="javax.persistence.jdbc.url"
-                      value="jdbc:sqlserver://localhost:1433;DatabaseName=MilkTea;encrypt=true;trustServerCertificate=true;"/>
+                          value="jdbc:sqlserver://localhost:1433;DatabaseName=MilkTea;encrypt=true;trustServerCertificate=true;"/>
             <property name="javax.persistence.jdbc.user" value="sa"/>
             <property name="javax.persistence.jdbc.password" value="sa123456"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServer2008Dialect"/>
